@@ -1,5 +1,5 @@
 from sympy.core import (S, pi, oo, symbols, Function,
-                        Rational, Integer, Tuple)
+                        Rational, Integer, Tuple, Derivative)
 from sympy.integrals import Integral
 from sympy.concrete import Sum
 from sympy.functions import exp, sin, cos
@@ -73,6 +73,12 @@ def test_Integral():
         "Hold[Integrate[Exp[-x^2 - y^2], {x, -Infinity, Infinity}, " \
         "{y, -Infinity, Infinity}]]"
 
+def test_Derivative():
+    assert mcode(Derivative(sin(x), x)) == "Hold[D[Sin[x], x]]"
+    assert mcode(Derivative(x, x)) == "Hold[D[x, x]]"
+    assert mcode(Derivative(sin(x)*y**4, x, 2)) == "Hold[D[y^4*Sin[x], x, x]]"
+    assert mcode(Derivative(sin(x)*y**4, x, y, x)) == "Hold[D[y^4*Sin[x], x, y, x]]"
+    assert mcode(Derivative(sin(x)*y**4, x, y, 3, x)) == "Hold[D[y^4*Sin[x], x, y, y, y, x]]"
 
 def test_Sum():
     assert mcode(Sum(sin(x), (x, 0, 10))) == "Hold[Sum[Sin[x], {x, 0, 10}]]"
