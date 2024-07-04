@@ -108,7 +108,7 @@ known_functions = {
     "Heaviside": [(lambda x: True, "HeavisideTheta")],
     "KroneckerDelta": [(lambda *x: True, "KroneckerDelta")],
 }
-
+ 
 
 class MCodePrinter(CodePrinter):
     """A printer to convert python expressions to
